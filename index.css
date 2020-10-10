@@ -1,0 +1,138 @@
+html, body, .grid-container { height: 100%; margin: 0; }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "menu menu menu . . . . . . . ."
+    "menu menu menu fecha fecha fecha debito debito credito credito ."
+    "menu menu menu codigo codigo codigo debitogrid debitogrid creditogrid creditogrid ."
+    "menu menu menu nombre nombre nombre debitogrid debitogrid creditogrid creditogrid ."
+    "menu menu menu nombre nombre nombre debitogrid debitogrid creditogrid creditogrid ."
+    "menu menu menu nombre nombre nombre debitogrid debitogrid creditogrid creditogrid ."
+    "menu menu menu grid grid grid grid grid grid grid ."
+    "menu menu menu grid grid grid grid grid grid grid ."
+    "menu menu menu grid grid grid grid grid grid grid ."
+    "menu menu menu . . . botones botones botones botones ."
+    "menu menu menu . . . . . . . .";
+}
+
+.menu { grid-area: menu; }
+
+.fecha { grid-area: fecha; }
+
+.debito { grid-area: debito; }
+
+.credito { grid-area: credito; }
+
+.codigo { grid-area: codigo;   display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   }
+
+.nombre { grid-area: nombre;}
+.nombre textarea{
+   
+    min-height: 85%;
+    min-width: 95%;
+}
+.debitogrid { grid-area: debitogrid; }
+
+.creditogrid { grid-area: creditogrid; }
+
+.grid { grid-area: grid; }
+
+.botones { grid-area: botones; }
+
+
+/* For presentation only, no need to copy the code below */
+.grid-container * {
+  border: 1px solid red;
+  position: relative;
+}
+
+.grid-container *:after {
+  content:attr(class);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+[type="date"] {
+    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+  }
+  [type="date"]::-webkit-inner-spin-button {
+    display: none;
+  }
+  [type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }
+  
+
+  label {
+    display: block;
+  }
+  input {
+    border: 1px solid #c4c4c4;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 3px 5px;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+    width: 190px;
+  }
+
+  
+  /* Reset Select */
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background-image: none;
+  }
+  /* Remove IE arrow */
+  select::-ms-expand {
+    display: none;
+  }
+  /* Custom Select */
+  .select {
+
+    display: flex;
+    width: 30vh;
+    height: 5vh;
+  
+
+    overflow: hidden;
+    border-radius: .25em;
+  }
+  select {
+    flex: 1;
+    padding: 0 .5em;
+  
+    cursor: pointer;
+  }
+  /* Arrow */
+  .select::after {
+    content: '\25BC';
+   visibility: hidden;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+  }
+  /* Transition */
+  .select:hover::after {
+    color: #f39c12;
+  }
+  

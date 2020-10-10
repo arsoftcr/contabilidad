@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    
+    <link rel="stylesheet" href="./index.css">
+   
+</head>
+<body>
+  
+    <div class="grid-container">
+        <div class="menu"></div>
+        <div class="fecha">
+
+            <label for="dateofbirth">Date Of Birth</label>
+                <input  type="date" name="dateofbirth" id="dateofbirth">
+
+        </div>
+        <div class="debito">
+            <input  type="number" name="debe" id="debe" v-model="debe">
+        </div>
+        <div class="credito"></div>
+        <div class="codigo">
+
+            <div class="select">
+                <select name="slct" id="slct">
+                  <option selected disabled>Choose an option</option>
+                  <option value="1">Pure CSS</option>
+                  <option value="2">No JS</option>
+                  <option value="3">Nice!</option>
+                </select>
+              </div>
+
+        </div>
+        <div class="nombre">
+
+            <textarea>You don't need rows or cols to set a textarea's size.</textarea>
+
+        </div>
+        <div class="debitogrid" id="debegrid"></div>
+        <div class="creditogrid"></div>
+        <div class="grid"></div>
+        <div class="botones"></div>
+      </div>
+    
+</body>
+</html>
