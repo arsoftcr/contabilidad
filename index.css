@@ -3,7 +3,7 @@ html, body, .grid-container { height: 100%; margin: 0; }
 .grid-container {
   display: grid;
   color: #2d98da;
-  font-family:'Chilanka', cursive;;
+  font-family: 'Roboto', sans-serif !important;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 1px 1px;
@@ -39,12 +39,34 @@ html, body, .grid-container { height: 100%; margin: 0; }
    .credito ul,li{
     list-style: none;
    }
-.codigo { grid-area: codigo;position: relative;
+.codigo { grid-area: codigo;
 
-  justify-content: center; align-items: center;}
-   .codigo .abs{
-     position: absolute;right: 5vh;
-   }
+  justify-content: space-around; align-items: center;}
+  
+  .codigo .abs{
+    margin-top:1vh;
+    display: flex; 
+    justify-content: space-around;
+
+  }
+
+  .codigo .abs .reiniciar{
+    color: white;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: bold;
+    border-color: solid 1vh #0abde3;
+    font-size: large;
+    background: rgb(51,44,167);
+    background: linear-gradient(90deg, rgba(51,44,167,1) 0%, rgba(19,19,176,1) 42%, rgba(0,212,255,1) 100%);
+  }
+  .codigo .abs .crear{
+    color: white;
+    border-color: solid 1vh #0abde3;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: bold;
+    font-size: large;
+   background-color: #ff4757;
+  }
 
 .nombre { grid-area: nombre;}
 .nombre textarea{
@@ -66,7 +88,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   grid-area: debitogrid;overflow: scroll; 
   position:relative;  font-weight: bold;
-  border: solid 0.3vh #341f97;
+  border: solid 0.2vh #341f97;
   font-family: 'Roboto', sans-serif;
   color: #1e272e;
 
@@ -82,18 +104,18 @@ input[type=number]::-webkit-outer-spin-button {
   font-weight: bold;
 }
 
-.creditogrid { grid-area: creditogrid; border: solid 0.3vh #341f97;
+.creditogrid { grid-area: creditogrid; border: solid 0.2vh #341f97;
   position:relative;  font-weight: bold;
   font-family: 'Roboto', sans-serif;color: #1e272e; }
 
 
-.grid { grid-area: grid; border: solid 0.3vh #341f97;overflow: scroll;}
+.grid { grid-area: grid; border: solid 0.2vh #341f97;overflow: scroll;}
 
 
 [type="date"] {
     background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
-    color: #2d98da;
-
+    color: #3742fa;
+    font-weight: bold;
   }
   [type="date"]::-webkit-inner-spin-button {
     display: none;
@@ -173,7 +195,9 @@ input[type=number]::-webkit-outer-spin-button {
   
 
 textarea{
-  border-color:#341f97;;
+  border-color:#341f97;
+  margin-top: 2vh;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 input{
@@ -181,8 +205,9 @@ input{
 }
 
 button{
+  width: 20vh;
   background-color: transparent;
-  border: solid 0.3vh #341f97;
+  border: solid 0.2vh #341f97;
   color: #2d98da;
 }
 

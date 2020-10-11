@@ -4,89 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asientos</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="./index.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="accordeon.css">
+
+   
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+<script>
+
+  var config = {
+    apiKey: "AIzaSyDAl_FT_KWaXZ4wthDlNZuGeV8QhhzspMw",
+    authDomain: "conta-ff312.firebaseapp.com",
+    databaseURL: "https://conta-ff312.firebaseio.com",
+    projectId: "conta-ff312",
+    storageBucket: "conta-ff312.appspot.com",
+    messagingSenderId: "783970735941"
+  };
+  firebase.initializeApp(config);
+</script>
+
 </head>
 <body>
-  
+    
     <div class="grid-container" id="apps">
         <div class="menu"></div>
         <div class="fecha">
-
+            
             <label for="dateofbirth">Fecha</label>
-                <input  type="date" name="dateofbirth" :value="myDate && new Date(myDate.getTime()-(myDate.getTimezoneOffset()*60*1000)).toISOString().split('T')[0]"
-                @input="myDate = $event.target.valueAsDate" >
-
-
-
+            <input  type="date" name="dateofbirth" :value="myDate && new Date(myDate.getTime()-(myDate.getTimezoneOffset()*60*1000)).toISOString().split('T')[0]"
+            @input="myDate = $event.target.valueAsDate" >
+            
+            
+            
         </div>
         <div class="debito">
-            <label for="debe">Monto debito</label>
+            <label for="debe">Monto Débito</label>
             <input  type="number" name="debe" @keyup.enter="agregardebe"  v-model="debe">
         </div>
         <div class="credito">
-
-            <label for="haber">Monto credito</label>
+            
+            <label for="haber">Monto Crédito</label>
             <input  type="number" name="haber" @keyup.enter="agregarhaber"  v-model="haber">
         </div>
         <div class="codigo">
-
-          
-
-              <select class="select" v-model="selected">
+            
+            
+            
+            <select class="select" v-model="selected">
                 <option v-for="option in options" v-bind:value="option.value">
-                  {{ option.text }}
+                    {{ option.text }}
                 </option>
-              </select>
-
-
-              <div class="abs"> 
-                <button v-on:click="reiniciar">Reiniciar</button>
-                <button v-on:click="agregar">Agregar</button>
+            </select>
+            
+            
+            <div class="abs" > 
+                <button v-on:click="reiniciar" class="crear">Reiniciar</button>
+                <button v-on:click="agregar" class="reiniciar">Crear Asiento</button>
             </div>
-
+            
         </div>
         <div class="nombre">
-
+            
             <textarea 
             v-model="descripcion"
             placeholder="Escriba aquí la descripción del asiento">
-                
-
-            </textarea>
-
-        </div>
-        <div class="debitogrid">
-
-            <ul >
-                <li v-for="item of debes">{{item}}</li>
-            </ul>
-
-            <input type="text" :value="totaldebito" readonly>
-        </div>
+            
+            
+        </textarea>
         
-        <div class="creditogrid">
-            <ul >
-                <li v-for="item of haberes">{{item}}</li>
-            </ul>
-
-            <input type="text" :value="totalcredito" readonly>
-        </div>
-
-        <div class="grid" v-model="secciones" >
-
-           
-        </div>
-       
+    </div>
+    <div class="debitogrid">
         
-      </div>
+        <ul >
+            <li v-for="item of debes">*{{item.cuenta}}:{{item.monto}}</li>
+        </ul>
+        
+        <input type="text" :value="totaldebito" readonly>
+    </div>
     
-      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-      <script src="./index.js"></script>
+    <div class="creditogrid">
+        <ul >
+            <li v-for="item of haberes">*{{item.cuenta}}:{{item.monto}}</li>
+        </ul>
+        
+        <input type="text" :value="totalcredito" readonly>
+    </div>
+    
+    <div class="grid"  >
+        
+        
+    </div>
+    
+    
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./index.js"></script>
 </body>
 </html>
