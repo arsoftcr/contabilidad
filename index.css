@@ -2,9 +2,11 @@ html, body, .grid-container { height: 100%; margin: 0; }
 
 .grid-container {
   display: grid;
+  color: #2d98da;
+  font-family:'Chilanka', cursive;;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
+  gap: 1px 1px;
   grid-template-areas:
     "menu menu menu . . . . . . . ."
     "menu menu menu fecha fecha fecha debito debito credito credito ."
@@ -23,14 +25,21 @@ html, body, .grid-container { height: 100%; margin: 0; }
 
 .fecha { grid-area: fecha; }
 
-.debito { grid-area: debito; }
+.debito { grid-area: debito;display: flex;
+ flex-direction: column; 
+  justify-content: center; align-items: center; }
 
-.credito { grid-area: credito; }
+  .debito ul,li{
+    list-style: none;
+  }
+.credito { grid-area: credito;display: flex;
+  flex-direction: column; 
+   justify-content: center; align-items: center; }
 
-.codigo { grid-area: codigo;   display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+   .credito ul,li{
+    list-style: none;
+   }
+.codigo { grid-area: codigo;
    }
 
 .nombre { grid-area: nombre;}
@@ -39,31 +48,43 @@ html, body, .grid-container { height: 100%; margin: 0; }
     min-height: 85%;
     min-width: 95%;
 }
-.debitogrid { grid-area: debitogrid; }
 
-.creditogrid { grid-area: creditogrid; }
+
+::-webkit-scrollbar {display: none;}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+
+
+
+
+
+
+
+.debitogrid {
+
+  grid-area: debitogrid;overflow: scroll; 
+
+  border: solid 0.3vh #341f97;
+}
+
+.creditogrid { grid-area: creditogrid; border: solid 0.3vh #341f97; }
 
 .grid { grid-area: grid; }
 
 .botones { grid-area: botones; }
 
 
-/* For presentation only, no need to copy the code below */
-.grid-container * {
-  border: 1px solid red;
-  position: relative;
-}
 
-.grid-container *:after {
-  content:attr(class);
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 
 
 [type="date"] {
     background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+    color: #2d98da;
+
   }
   [type="date"]::-webkit-inner-spin-button {
     display: none;
@@ -94,8 +115,12 @@ html, body, .grid-container { height: 100%; margin: 0; }
     appearance: none;
     outline: 0;
     box-shadow: none;
-    border: 0 !important;
+
     background-image: none;
+    color: #2d98da;
+  font-family:'Chilanka', cursive;
+  font-size: medium;
+  border-color: #341f97;
   }
   /* Remove IE arrow */
   select::-ms-expand {
@@ -136,3 +161,12 @@ html, body, .grid-container { height: 100%; margin: 0; }
     color: #f39c12;
   }
   
+
+textarea{
+  border-color:#341f97;;
+}
+
+input{
+  border-color:#341f97;;
+}
+

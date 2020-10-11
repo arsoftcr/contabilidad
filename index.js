@@ -1,18 +1,27 @@
 
 
-
-
-
-
 const app=new Vue({
-    el:'#debe',
+    el:'#apps',
     data:{
-        debes=[],
-        debe:''
+        debes:[],
+        haberes:[],
+        haber:'',
+        debe:'',
+        myDate: new Date()
     },
     methods:{
-        agregardebe(){
+        agregardebe (){
             
+            this.debes.push(`${this.debe}`)
+        },
+        agregarhaber(){
+            this.haberes.push(`${this.haber}`)
         }
+
+    },
+    beforeMount(){
+        
     }
 })
+
+

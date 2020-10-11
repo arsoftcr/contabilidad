@@ -5,29 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     
-    
     <link rel="stylesheet" href="./index.css">
-   
+  
+
 </head>
 <body>
   
-    <div class="grid-container">
+    <div class="grid-container" id="apps">
         <div class="menu"></div>
         <div class="fecha">
 
-            <label for="dateofbirth">Date Of Birth</label>
-                <input  type="date" name="dateofbirth" id="dateofbirth">
+            <label for="dateofbirth">Fecha</label>
+                <input  type="date" name="dateofbirth" :value="myDate && new Date(myDate.getTime()-(myDate.getTimezoneOffset()*60*1000)).toISOString().split('T')[0]"
+                @input="myDate = $event.target.valueAsDate" >
+
+
 
         </div>
         <div class="debito">
-            <input  type="number" name="debe" id="debe" v-model="debe">
+            <label for="debe">Monto debito</label>
+            <input  type="number" name="debe" @keyup.enter="agregardebe"  v-model="debe">
         </div>
-        <div class="credito"></div>
+        <div class="credito">
+
+            <label for="haber">Monto credito</label>
+            <input  type="number" name="haber" @keyup.enter="agregarhaber"  v-model="haber">
+        </div>
         <div class="codigo">
 
             <div class="select">
                 <select name="slct" id="slct">
-                  <option selected disabled>Choose an option</option>
+                  <option selected disabled>Seleccione una opcion</option>
                   <option value="1">Pure CSS</option>
                   <option value="2">No JS</option>
                   <option value="3">Nice!</option>
@@ -37,14 +45,28 @@
         </div>
         <div class="nombre">
 
-            <textarea>You don't need rows or cols to set a textarea's size.</textarea>
+            <textarea>
+                
+
+            </textarea>
 
         </div>
-        <div class="debitogrid" id="debegrid"></div>
-        <div class="creditogrid"></div>
+        <div class="debitogrid">
+
+            <ul >
+                <li v-for="item of debes">{{item}}</li>
+            </ul>
+        </div>
+        <div class="creditogrid">
+            <ul >
+                <li v-for="item of haberes">{{item}}</li>
+            </ul>
+        </div>
         <div class="grid"></div>
         <div class="botones"></div>
       </div>
-    
+      <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script src="./index.js"></script>
 </body>
 </html>
