@@ -6,8 +6,9 @@
     <title>Document</title>
     
     <link rel="stylesheet" href="./index.css">
-  
-
+    <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
   
@@ -42,10 +43,16 @@
                 </select>
               </div>
 
+
+              <div class="abs"> 
+                <button>Reiniciar</button>
+                <button>Agregar</button>
+            </div>
+
         </div>
         <div class="nombre">
 
-            <textarea>
+            <textarea placeholder="Escriba aquí la descripción del asiento">
                 
 
             </textarea>
@@ -56,16 +63,32 @@
             <ul >
                 <li v-for="item of debes">{{item}}</li>
             </ul>
+
+            <input type="text" :value="totaldebito" readonly>
         </div>
+        
         <div class="creditogrid">
             <ul >
                 <li v-for="item of haberes">{{item}}</li>
             </ul>
+
+            <input type="text" :value="totalcredito" readonly>
         </div>
         <div class="grid"></div>
-        <div class="botones"></div>
+        <div class="botones">
+          
+            
+          
+            <div class="abs">
+                <button>></button>
+                <button>>></button>
+                <button><<</button>
+                <button><</button>
+            </div>
+     
+        </div>
       </div>
-      <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet">
+    
       <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
       <script src="./index.js"></script>
 </body>
