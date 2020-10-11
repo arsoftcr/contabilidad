@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Asientos</title>
     
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="accordeon.css">
 </head>
 <body>
   
@@ -34,25 +36,26 @@
         </div>
         <div class="codigo">
 
-            <div class="select">
-                <select name="slct" id="slct">
-                  <option selected disabled>Seleccione una opcion</option>
-                  <option value="1">Pure CSS</option>
-                  <option value="2">No JS</option>
-                  <option value="3">Nice!</option>
-                </select>
-              </div>
+          
+
+              <select class="select" v-model="selected">
+                <option v-for="option in options" v-bind:value="option.value">
+                  {{ option.text }}
+                </option>
+              </select>
 
 
               <div class="abs"> 
-                <button>Reiniciar</button>
-                <button>Agregar</button>
+                <button v-on:click="reiniciar">Reiniciar</button>
+                <button v-on:click="agregar">Agregar</button>
             </div>
 
         </div>
         <div class="nombre">
 
-            <textarea placeholder="Escriba aquí la descripción del asiento">
+            <textarea 
+            v-model="descripcion"
+            placeholder="Escriba aquí la descripción del asiento">
                 
 
             </textarea>
@@ -74,19 +77,13 @@
 
             <input type="text" :value="totalcredito" readonly>
         </div>
-        <div class="grid"></div>
-        <div class="botones">
-          
-            
-          
-            <div class="abs">
-                <button>></button>
-                <button>>></button>
-                <button><<</button>
-                <button><</button>
-            </div>
-     
+
+        <div class="grid" v-model="secciones" >
+
+           
         </div>
+       
+        
       </div>
     
       <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

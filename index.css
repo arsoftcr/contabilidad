@@ -17,7 +17,7 @@ html, body, .grid-container { height: 100%; margin: 0; }
     "menu menu menu grid grid grid grid grid grid grid ."
     "menu menu menu grid grid grid grid grid grid grid ."
     "menu menu menu grid grid grid grid grid grid grid ."
-    "menu menu menu . . . botones botones botones botones ."
+    "menu menu menu grid grid grid grid grid grid grid ."
     "menu menu menu . . . . . . . .";
 }
 
@@ -40,6 +40,7 @@ html, body, .grid-container { height: 100%; margin: 0; }
     list-style: none;
    }
 .codigo { grid-area: codigo;position: relative;
+
   justify-content: center; align-items: center;}
    .codigo .abs{
      position: absolute;right: 5vh;
@@ -64,7 +65,7 @@ input[type=number]::-webkit-outer-spin-button {
 .debitogrid {
 
   grid-area: debitogrid;overflow: scroll; 
-  position:relative;
+  position:relative;  font-weight: bold;
   border: solid 0.3vh #341f97;
   font-family: 'Roboto', sans-serif;
   color: #1e272e;
@@ -72,31 +73,21 @@ input[type=number]::-webkit-outer-spin-button {
   
 }
 
-.debitogrid input{
-  position:absolute;bottom:0.1px;width: 22vh;font-size: large;
+.debitogrid input,
+.creditogrid input{
+  position:absolute;bottom:0.1px;width: 36vh;font-size: large; 
+  color: #2d98da;
+  border: 0 !important;
+  font-size: large;
+  font-weight: bold;
 }
 
 .creditogrid { grid-area: creditogrid; border: solid 0.3vh #341f97;
-  position:relative;
+  position:relative;  font-weight: bold;
   font-family: 'Roboto', sans-serif;color: #1e272e; }
 
-  .creditogrid input{
-   
-    position:absolute;bottom:0.1px;width: 22vh;font-size: large;
-  }
-.grid { grid-area: grid; border: solid 0.3vh #341f97;}
 
-.botones { grid-area: botones;display: flex;
-
-  position: relative;
-
-}
-.botones .abs{
-  position: absolute;right: 1px;
-}
-
-
-
+.grid { grid-area: grid; border: solid 0.3vh #341f97;overflow: scroll;}
 
 
 [type="date"] {
@@ -158,7 +149,8 @@ input[type=number]::-webkit-outer-spin-button {
   select {
     flex: 1;
     padding: 0 .5em;
-  
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
     cursor: pointer;
   }
   /* Arrow */
@@ -190,7 +182,7 @@ input{
 
 button{
   background-color: transparent;
-  border: solid 0.4vh #341f97;
+  border: solid 0.3vh #341f97;
   color: #2d98da;
 }
 

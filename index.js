@@ -7,9 +7,36 @@ const app=new Vue({
         haberes:[],
         haber:'',
         debe:'',
+        descripcion:'',
         myDate: new Date(),
         totaldebito:0,
-        totalcredito:0
+        totalcredito:0,
+        selected: 'W',
+
+    options: [
+        {text:'Seleccione una opcion',value:'W'},
+      { text: 'Efectivo', value: 'A' },
+      { text: 'Cuentas por pagar', value: 'B' },
+      { text: 'Cuentas por cobrar', value: 'C' }
+    ],
+    secciones:`
+    <section class="accordion">
+    <input type="checkbox" name="collapse" id="handle1" >
+   
+    <h2 class="handle">
+      <label for="handle1">
+        <i class="fas fa-angle-right"></i>  
+        {{myDate}}</label>
+    </h2>
+    <div class="content" v-for="item of debes"   v-for="it of haceres">
+      <p><strong>Cuenta:</strong>{{item}}</p>
+      <p><strong>Cuenta:</strong>{{it}}</p>
+
+    </div>
+ 
+  </section>
+    `
+
     },
     methods:{
         agregardebe (){
@@ -63,11 +90,35 @@ const app=new Vue({
             } catch (error) {
                 
             }
+        },
+        filterItems: function(presets) {
+            var app = this;
+            return presets.filter(function(preset) {
+                return preset.presetName == app.searchQuery;
+            })
+        },
+        reiniciar(){
+            this.debes=[],
+            this.haberes=[],
+            this.haber='',
+            this.debe='',
+            this.descripcion='',
+            this.myDate=new Date(),
+            this.totaldebito=0,
+            this.totalcredito=0,
+            this.selected='W',
+        this.options= [
+            {text:'Seleccione una opcion',value:'W'},
+          { text: 'Efectivo', value: 'A' },
+          { text: 'Cuentas por pagar', value: 'B' },
+          { text: 'Cuentas por cobrar', value: 'C' }
+        ]
+        },
+        agregar(){
+
+
         }
 
-    },
-    beforeMount(){
-        
     }
 })
 
