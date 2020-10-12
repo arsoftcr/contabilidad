@@ -12,30 +12,13 @@ const app=new Vue({
         totaldebito:0,
         totalcredito:0,
         selected: 'W',
-        
+        registros:[],
         options: [
             {text:'Seleccione una opcion',value:'W'},
             { text: 'Efectivo', value: 'A' },
             { text: 'Cuentas por pagar', value: 'B' },
             { text: 'Cuentas por cobrar', value: 'C' }
-        ],
-        secciones:`
-        <section class="accordion">
-        <input type="checkbox" name="collapse" id="handle1" >
-        
-        <h2 class="handle">
-        <label for="handle1">
-        <i class="fas fa-angle-right"></i>  
-        {{myDate}}</label>
-        </h2>
-        <div class="content" v-for="item of debes"   v-for="it of haceres">
-        <p><strong>Cuenta:</strong>{{item}}</p>
-        <p><strong>Cuenta:</strong>{{it}}</p>
-        
-        </div>
-        
-        </section>
-        `
+        ]
         
     },
     methods:{
@@ -71,7 +54,7 @@ const app=new Vue({
             
         },
         agregarhaber(){
-
+            
             if (this.validarNumero(this.haber)) {
                 
                 
@@ -99,7 +82,7 @@ const app=new Vue({
             } else {
                 this.mostrarMensaje(`El valor ingresado no es numérico`,`warning`)
             }
-          
+            
         },
         mostrarMensaje(msg,tipo){
             
@@ -124,7 +107,7 @@ const app=new Vue({
                     }
                 } 
             } catch (error) {
-                
+                this.mostrarMensaje(error,`error`)
             }
         },
         filterItems(presets) {
@@ -150,8 +133,8 @@ const app=new Vue({
                 { text: 'Cuentas por cobrar', value: 'C' }
             ]
         },
-       async agregar(){
-           
+        async agregar(){
+            
             if (this.validacionesAsiento()) {
                 await this.fetchIngreso()
             }else{
@@ -160,87 +143,215 @@ const app=new Vue({
         },
         validacionesAsiento(){
             let valido=true
-
+            
             if (this.debes.length<0) {
                 valido=false
             }
-
+            
             if (this.haberes.length<0) {
                 valido=false
             }
-
+            
             if (typeof this.descripcion===undefined
                 &&typeof this.descripcion===null&&
                 this.descripcion==='') {
-                valido=false
-            }
-            if (this.totaldebito===0||this.totaldebito<0) {
-                valido=false
-            }
-            if (this.totalcredito===0||this.totalcredito<0) {
-                valido=false
-            }
-
-
-            return valido
-      
-        },
-       async fetchIngreso(){
-            try {
-                var myHeaders = new Headers();
-             
-                   myHeaders.append("Content-Type", "application/json");
-                   
-                   var raw = JSON.stringify(
-                       {
+                    valido=false
+                }
+                if (this.totaldebito===0||this.totaldebito<0) {
+                    valido=false
+                }
+                if (this.totalcredito===0||this.totalcredito<0) {
+                    valido=false
+                }
+                
+                
+                return valido
+                
+            },
+            async fetchIngreso(){
+                try {
+                    var myHeaders = new Headers();
+                    
+                    myHeaders.append("Content-Type", "application/json");
+                    
+                    var raw = JSON.stringify(
+                        {
                             "fecha":this.myDate,
                             "debitos":this.debes,
                             "creditos":this.haberes,
-                            "descripcion":this.descripcion
+                            "descripcion":this.descripcion,
+                            "totaldebito":this.totaldebito,
+                            "totalcredito":this.totalcredito
+                        });
+                       
+                        
+                        var requestOptions = {
+                            method: 'POST',
+                            headers: myHeaders,
+                            body: raw,
+                            redirect: 'follow'
+                        };
+                        
+                        await fetch("https://conta-ff312.firebaseio.com/AsientosDiarios.json", requestOptions)
+                        .then(response => response.text())
+                        .then(result => {
+                          
+                            //ok
+                        })
+                        .catch(error => {
+                            
+                            this.mostrarMensaje(error,`error`)
+                        });
+                    } catch (error) {
+                        this.mostrarMensaje(error,`error`)
+                    }
+                },
+                 cargarAsientos(){
+                    try {
+                      
+                        const dbref=firebase.database().ref().child('AsientosDiarios');
+                      
+                        dbref.on('value',(snapshot)=>{
+                         
+                            this.registros=[]
+
+                            snapshot.forEach((childSnapshot)=> {
+                                var k=childSnapshot.key;
+                                var childData =childSnapshot.val();
+                                
+                                var raw =
+                                    {
+                                        id:k,
+                                        fecha:childData.fecha,
+                                        descripcion:childData.descripcion,
+                                        debitos:childData.debitos,
+                                        creditos:childData.creditos,
+                                        totaldebitos:childData.totaldebito,
+                                        totalcreditos:childData.totalcredito
+                                    };
+                                
+                                    this.registros.push(raw)
+                             
+                               
+                            });
+                            
+                            
+                        });
+                        
+                    } catch (error) {
+                        this.mostrarMensaje(error,`error`)
+                    }
+                },
+                mostrarDetalles(e){
+                    try {
+                    
+                        let id=e.target.getAttribute('data-id')
+
+                        let registro=this.registros.filter((x)=>{
+                            return x.id==id
+                        })
+
+                        let misdebitos=""
+                        registro[0].debitos.forEach(element => {
+                            misdebitos=misdebitos+`
+                            <tr>
+                            <td>${element.cuenta}</td>
+                            <td>${element.monto}</td>
+                            </tr>
+                           `
                         });
 
-                        console.log(raw)
-                   
-                   var requestOptions = {
-                     method: 'POST',
-                     headers: myHeaders,
-                     body: raw,
-                     redirect: 'follow'
-                   };
-                   
-                  await fetch("https://conta-ff312.firebaseio.com/AsientosDiarios.json", requestOptions)
-                     .then(response => response.text())
-                     .then(result => {
-                        console.log(result)
-                       Swal.fire({
-                           icon: 'success',
-                           title: 'Su tarea se ingresó con éxito.',
-                           showConfirmButton: true,
-                     
-                         })
-                   
-                   
-                     })
-                     .catch(error => {
-                   
-                       Swal.fire({
-                           icon: 'error',
-                           title: 'Oops! Vaya! No hemos podido enviar los datos. Por favor intentelo más tarde.',
-                           showConfirmButton: true,
-                     
-                         })
-                     });
-            } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops! Vaya! No hemos podido enviar los datos. Por favor intentelo más tarde.',
-                    showConfirmButton: true,
-              
-                  })
+                        let miscreditos=""
+                        registro[0].creditos.forEach(element => {
+                            miscreditos=miscreditos+`
+                            <tr>
+                            <td>${element.cuenta}</td>
+                            <td>${element.monto}</td>
+                            </tr>
+                           `
+                        });
+
+                        Swal.fire({
+                          
+                            html: `
+                            <table class="table table-responsive ">
+                            <caption style="color:#2d98da;">Débitos</caption>
+                            <thead>
+                            <tr>
+                              <th scope="col"><h3 class="display">Cuenta</h3></th>
+                              <th scope="col"><h3 class="display">Monto</h3></th>
+                            
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            ${misdebitos}
+
+                          </tbody>
+                            </table>
+
+                            <br><br>
+                            <table class="table table-responsive ">
+                            <caption style="color:#2d98da;">Créditos</caption>
+                            <thead>
+                            <tr>
+                              <th scope="col"><h3 class="display">Cuenta</h3></th>
+                              <th scope="col"><h3 class="display">Monto</h3></th>
+                            
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            ${miscreditos}
+
+                          </tbody>
+                            </table>
+                            `,
+                            showConfirmButton: true,
+                            
+                        })
+                    } catch (error) {
+                        this.mostrarMensaje(error,`error`)
+                    }
+                    
+                },
+               async eliminar(e){
+                    try {
+                        let id=e.target.getAttribute('data-id')
+
+                        await this.fetchEliminar(id)
+                    } catch (error) {
+                        this.mostrarMensaje(error,`error`)
+                    }
+                },
+                async fetchEliminar(id){
+                    try {
+                       
+                            var requestOptions = {
+                                method: 'DELETE',
+                                redirect: 'follow'
+                            };
+                            
+                            await fetch(`https://conta-ff312.firebaseio.com/AsientosDiarios/${id}.json`, requestOptions)
+                            .then(response => response.text())
+                            .then(result => {
+                                
+                                //ok
+                            })
+                            .catch(error => {
+                                
+                                this.mostrarMensaje(error,`error`)
+                            });
+                        } catch (error) {
+                            this.mostrarMensaje(error,`error`)
+                        }
+                    }
+                
+            },
+            beforeMount(){
+                 this.cargarAsientos()
             }
-        }
+        })
         
-    }
-})
-
-
+        
+        

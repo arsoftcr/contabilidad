@@ -109,7 +109,11 @@ input[type=number]::-webkit-outer-spin-button {
   font-family: 'Roboto', sans-serif;color: #1e272e; }
 
 
-.grid { grid-area: grid; border: solid 0.2vh #341f97;overflow: scroll;}
+.grid { grid-area: grid; }
+.grid label{
+  font-size: 5vh;
+  font-weight: bold;
+}
 
 
 [type="date"] {
